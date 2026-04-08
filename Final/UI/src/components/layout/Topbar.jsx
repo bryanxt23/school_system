@@ -5,31 +5,43 @@ import styles from "./Topbar.module.css";
 // Phase 4+ will add more entries (Grades, Tuition, Books, Tasks, Visitors, ...).
 const NAV_BY_ROLE = {
   Admin: [
-    { label: "Dashboard", path: "/dashboard" },
-    { label: "Academics", path: "/academics" },
-    { label: "Directory", path: "/directory" },
-    { label: "People",    path: "/people" },
-    { label: "Calendar",  path: "/calendar" },
+    { label: "Dashboard",     path: "/dashboard" },
+    { label: "Academics",     path: "/academics" },
+    { label: "Directory",     path: "/directory" },
+    { label: "Tuition",       path: "/admin/tuition" },
+    { label: "Books",         path: "/admin/books" },
+    { label: "Announcements", path: "/announcements" },
+    { label: "People",        path: "/people" },
+    { label: "Calendar",      path: "/calendar" },
   ],
   Teacher: [
-    { label: "Dashboard", path: "/dashboard" },
-    { label: "Calendar",  path: "/calendar" },
+    { label: "Dashboard",     path: "/dashboard" },
+    { label: "Announcements", path: "/announcements" },
+    { label: "Calendar",      path: "/calendar" },
   ],
   Student: [
-    { label: "Dashboard", path: "/dashboard" },
-    { label: "Grades",    path: "/grades" },
-    { label: "Calendar",  path: "/calendar" },
+    { label: "Dashboard",     path: "/dashboard" },
+    { label: "Grades",        path: "/grades" },
+    { label: "Tuition",       path: "/tuition" },
+    { label: "Books",         path: "/books" },
+    { label: "Announcements", path: "/announcements" },
+    { label: "Calendar",      path: "/calendar" },
   ],
   Parent: [
-    { label: "Dashboard", path: "/dashboard" },
-    { label: "Grades",    path: "/grades" },
-    { label: "Calendar",  path: "/calendar" },
+    { label: "Dashboard",     path: "/dashboard" },
+    { label: "Grades",        path: "/grades" },
+    { label: "Tuition",       path: "/tuition" },
+    { label: "Books",         path: "/books" },
+    { label: "Announcements", path: "/announcements" },
+    { label: "Calendar",      path: "/calendar" },
   ],
   Janitor: [
-    { label: "Dashboard", path: "/dashboard" },
+    { label: "Dashboard",     path: "/dashboard" },
+    { label: "Announcements", path: "/announcements" },
   ],
   SecurityGuard: [
-    { label: "Dashboard", path: "/dashboard" },
+    { label: "Dashboard",     path: "/dashboard" },
+    { label: "Announcements", path: "/announcements" },
   ],
 };
 

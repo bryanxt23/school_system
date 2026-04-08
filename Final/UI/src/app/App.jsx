@@ -11,6 +11,11 @@ import AcademicsPage from "../features/academics/AcademicsPage";
 import DirectoryPage from "../features/directory/DirectoryPage";
 import GradesPage from "../features/grades/GradesPage";
 import TeacherGradeEncodingPage from "../features/grades/TeacherGradeEncodingPage";
+import TuitionAdminPage from "../features/tuition/TuitionAdminPage";
+import TuitionPage from "../features/tuition/TuitionPage";
+import BooksAdminPage from "../features/books/BooksAdminPage";
+import BooksPage from "../features/books/BooksPage";
+import AnnouncementsPage from "../features/announcements/AnnouncementsPage";
 
 function getUser() {
   try {
@@ -71,6 +76,19 @@ export default function App() {
                 <Route path="/teacher/grades/:id" element={
                   <RequireRole roles={["Teacher", "Admin"]}><TeacherGradeEncodingPage /></RequireRole>
                 } />
+                <Route path="/admin/tuition" element={
+                  <RequireAdmin><TuitionAdminPage /></RequireAdmin>
+                } />
+                <Route path="/tuition" element={
+                  <RequireRole roles={["Student", "Parent", "Admin"]}><TuitionPage /></RequireRole>
+                } />
+                <Route path="/admin/books" element={
+                  <RequireAdmin><BooksAdminPage /></RequireAdmin>
+                } />
+                <Route path="/books" element={
+                  <RequireRole roles={["Student", "Parent", "Admin"]}><BooksPage /></RequireRole>
+                } />
+                <Route path="/announcements" element={<AnnouncementsPage />} />
                 <Route path="/" element={<Navigate to="/dashboard" replace />} />
                 <Route path="*" element={<Navigate to="/dashboard" replace />} />
               </Routes>

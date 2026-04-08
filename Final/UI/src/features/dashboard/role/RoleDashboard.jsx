@@ -1,8 +1,10 @@
 import s from "../DashboardPage.module.css";
+import RecentAnnouncementsWidget from "../../announcements/RecentAnnouncementsWidget";
 
 /**
- * Shared visual shell for every role-specific dashboard placeholder.
- * Phases 4–11 will replace `children` with real widgets per role.
+ * Shared visual shell for every role-specific dashboard.
+ * Phases 4–11 fill `children` with role-specific widgets.
+ * The Recent Announcements widget is included for every role automatically.
  */
 export default function RoleDashboard({ eyebrow, title, sub, user, children }) {
   return (
@@ -18,6 +20,7 @@ export default function RoleDashboard({ eyebrow, title, sub, user, children }) {
           )}
         </div>
         {children}
+        <RecentAnnouncementsWidget />
       </div>
     </div>
   );
