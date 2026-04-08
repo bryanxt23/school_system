@@ -8,34 +8,34 @@ const MONTH_NAMES = [
 ];
 const DOW = ["Mon","Tue","Wed","Thu","Fri","Sat"];
 
-const EVENT_TYPES = ["Leave","Holiday","Training","Meeting","Store Event","Overtime","Other"];
+const EVENT_TYPES = ["Class","Exam","Holiday","Faculty Meeting","Sports","Field Trip","Birthday","Other"];
 
-// Which types default to "affects salary" when selected
+// Legacy "salary affects" hook from the jewelry app — kept harmless for the school system.
 const SALARY_DEFAULTS = {
-  Leave: true, Holiday: true, Overtime: true,
-  Training: false, Meeting: false, "Store Event": false, Other: false,
+  Class: false, Exam: false, Holiday: false,
+  "Faculty Meeting": false, Sports: false, "Field Trip": false, Birthday: false, Other: false,
 };
 
 const EVENT_BG = {
-  Leave:           "rgba(192,57,43,.25)",
-  Holiday:         "rgba(231,76,60,.25)",
-  Training:        "rgba(155,89,182,.25)",
-  Meeting:         "rgba(86,160,90,.25)",
-  "Store Event":   "rgba(230,126,34,.25)",
-  Overtime:        "rgba(52,152,219,.25)",
-  Birthday:        "rgba(233,130,198,.25)",
-  Other:           "rgba(149,165,166,.25)",
+  Class:             "rgba(52,152,219,.25)",
+  Exam:              "rgba(192,57,43,.25)",
+  Holiday:           "rgba(231,76,60,.25)",
+  "Faculty Meeting": "rgba(86,160,90,.25)",
+  Sports:            "rgba(230,126,34,.25)",
+  "Field Trip":      "rgba(155,89,182,.25)",
+  Birthday:          "rgba(233,130,198,.25)",
+  Other:             "rgba(149,165,166,.25)",
 };
 
 const EVENT_DOT = {
-  Leave:           "#c0392b",
-  Holiday:         "#e74c3c",
-  Training:        "#9b59b6",
-  Meeting:         "#56a05a",
-  "Store Event":   "#e67e22",
-  Overtime:        "#3498db",
-  Birthday:        "#e982c6",
-  Other:           "#95a5a6",
+  Class:             "#3498db",
+  Exam:              "#c0392b",
+  Holiday:           "#e74c3c",
+  "Faculty Meeting": "#56a05a",
+  Sports:            "#e67e22",
+  "Field Trip":      "#9b59b6",
+  Birthday:          "#e982c6",
+  Other:             "#95a5a6",
 };
 
 // ── Friendly time picker (Hour / Minute / AM-PM dropdowns) ──
@@ -286,7 +286,7 @@ function EventModal({ event, onClose, onSaved, allEmployees }) {
             <label className={styles.label}>Event Type</label>
             <select className={styles.select} value={form.eventType} onChange={e => {
               const t = e.target.value;
-              const personal = ["Leave", "Holiday", "Overtime"].includes(t);
+              const personal = ["Holiday"].includes(t);
               setForm(f => ({ ...f, eventType: t, affectsSalary: SALARY_DEFAULTS[t] ?? false, attendees: personal ? [] : f.attendees }));
             }}>
               {EVENT_TYPES.map(t => <option key={t} value={t}>{t}</option>)}
@@ -315,7 +315,7 @@ function EventModal({ event, onClose, onSaved, allEmployees }) {
           </div>
 
           {/* Attendees — hidden for Leave & Overtime (personal events, just the creator) */}
-          {!["Leave", "Holiday", "Overtime"].includes(form.eventType) && (
+          {!["Holiday"].includes(form.eventType) && (
             <div className={styles.field}>
               <label className={styles.label}>Attendees</label>
               <div className={styles.attendeeDropdown} ref={dropdownRef}>

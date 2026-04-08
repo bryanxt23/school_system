@@ -1,18 +1,27 @@
+import { useEffect, useRef, useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import styles from "./Topbar.module.css";
 
-// Phase 3: role-aware nav. Each role gets its own sidebar.
-// Phase 4+ will add more entries (Grades, Tuition, Books, Tasks, Visitors, ...).
+/**
+ * Phase 3+: role-aware nav. An entry is EITHER a flat link
+ *   { label, path }
+ * OR a dropdown group
+ *   { label, items: [{ label, path }, ...] }
+ */
 const NAV_BY_ROLE = {
   Admin: [
-    { label: "Dashboard",     path: "/dashboard" },
-    { label: "Academics",     path: "/academics" },
-    { label: "Directory",     path: "/directory" },
-    { label: "Tuition",       path: "/admin/tuition" },
-    { label: "Books",         path: "/admin/books" },
-    { label: "Facilities",    path: "/admin/facilities" },
+    { label: "Dashboard", path: "/dashboard" },
+    { label: "Academics", path: "/academics" },
+    { label: "People", items: [
+      { label: "Students & Parents", path: "/directory" },
+      { label: "Staff",              path: "/people" },
+    ]},
+    { label: "Operations", items: [
+      { label: "Tuition",    path: "/admin/tuition" },
+      { label: "Books",      path: "/admin/books" },
+      { label: "Facilities", path: "/admin/facilities" },
+    ]},
     { label: "Announcements", path: "/announcements" },
-    { label: "People",        path: "/people" },
     { label: "Calendar",      path: "/calendar" },
   ],
   Teacher: [
@@ -56,6 +65,46 @@ function getUser() {
   } catch { return null; }
 }
 
+function NavGroup({ entry, pathname, nav }) {
+  const [open, setOpen] = useState(false);
+  const ref = useRef(null);
+
+  useEffect(() => {
+    function onClick(e) {
+      if (ref.current && !ref.current.contains(e.target)) setOpen(false);
+    }
+    document.addEventListener("mousedown", onClick);
+    return () => document.removeEventListener("mousedown", onClick);
+  }, []);
+
+  const groupActive = entry.items.some(it => pathname === it.path);
+
+  return (
+    <div className={styles.navGroup} ref={ref}>
+      <div
+        className={`${styles.navItem} ${groupActive ? styles.active : ""}`}
+        onClick={() => setOpen(o => !o)}
+        role="button"
+        tabIndex={0}
+        onKeyDown={e => { if (e.key === "Enter" || e.key === " ") setOpen(o => !o); }}>
+        {entry.label} <span className={styles.chevron}>▾</span>
+      </div>
+      {open && (
+        <div className={styles.dropdown}>
+          {entry.items.map(it => (
+            <div
+              key={it.label}
+              className={`${styles.dropItem} ${pathname === it.path ? styles.dropItemActive : ""}`}
+              onClick={() => { setOpen(false); nav(it.path); }}>
+              {it.label}
+            </div>
+          ))}
+        </div>
+      )}
+    </div>
+  );
+}
+
 export default function Topbar() {
   const nav = useNavigate();
   const { pathname } = useLocation();
@@ -81,15 +130,18 @@ export default function Topbar() {
 
       {/* ── Nav tabs ── */}
       <div className={styles.navPill}>
-        {navForRole(user?.role).map((t) => {
-          const active = pathname === t.path;
+        {navForRole(user?.role).map((entry) => {
+          if (entry.items) {
+            return <NavGroup key={entry.label} entry={entry} pathname={pathname} nav={nav} />;
+          }
+          const active = pathname === entry.path;
           return (
-            <div key={t.path}
+            <div key={entry.path}
               className={`${styles.navItem} ${active ? styles.active : ""}`}
-              onClick={() => nav(t.path)}
-              onKeyDown={(e) => { if (e.key === "Enter" || e.key === " ") nav(t.path); }}
+              onClick={() => nav(entry.path)}
+              onKeyDown={(e) => { if (e.key === "Enter" || e.key === " ") nav(entry.path); }}
               role="button" tabIndex={0}>
-              {t.label}
+              {entry.label}
             </div>
           );
         })}
