@@ -207,8 +207,8 @@ function EmployeeModal({ emp, onClose, onSaved }) {
             <input ref={photoRef} type="file" accept="image/*" style={{ display: "none" }} onChange={onPhotoChange} />
           </div>
           <div>
-            <div className={styles.modalTitle}>{isEdit ? form.name || "Edit Employee" : "Add Employee"}</div>
-            <div className={styles.modalSubtitle}>{isEdit ? emp.code : "New employee"}</div>
+            <div className={styles.modalTitle}>{isEdit ? form.name || "Edit Staff Member" : "Add Staff Member"}</div>
+            <div className={styles.modalSubtitle}>{isEdit ? emp.code : "New staff member"}</div>
           </div>
           <button className={styles.modalClose} onClick={onClose}>✕</button>
         </div>
@@ -361,7 +361,7 @@ function EmployeeModal({ emp, onClose, onSaved }) {
         <div className={styles.modalFooter}>
           <button className={styles.cancelBtn} onClick={onClose} disabled={saving}>Cancel</button>
           <button className={styles.saveBtn} onClick={save} disabled={saving}>
-            {saving ? "Saving…" : isEdit ? "Save Changes" : "Add Employee"}
+            {saving ? "Saving…" : isEdit ? "Save Changes" : "Add Staff"}
           </button>
         </div>
       </div>
@@ -431,7 +431,7 @@ export default function PeoplePage() {
 
   return (
     <div className={styles.page}>
-      <div className={styles.pageTitle}>People</div>
+      <div className={styles.pageTitle}>Staff</div>
 
       <div className={styles.card}>
         {/* Top bar */}
@@ -455,13 +455,13 @@ export default function PeoplePage() {
               </div>
             )}
           </div>
-          <button className={styles.addIconBtn} title="Add Employee" onClick={() => setModalEmp(null)}>＋</button>
+          <button className={styles.addIconBtn} title="Add Staff" onClick={() => setModalEmp(null)}>＋</button>
         </div>
 
         {/* Card header */}
         <div className={styles.cardHeader}>
-          <span className={styles.cardTitle}>People</span>
-          <button className={styles.addBtn} onClick={() => setModalEmp(null)}>＋ Add Employee</button>
+          <span className={styles.cardTitle}>Staff</span>
+          <button className={styles.addBtn} onClick={() => setModalEmp(null)}>＋ Add Staff</button>
         </div>
 
         {/* Filter row */}
@@ -480,7 +480,7 @@ export default function PeoplePage() {
             <thead>
               <tr>
                 <th className={styles.thCheck}><span className={styles.checkBox} /></th>
-                <th className={styles.th}>Employee</th>
+                <th className={styles.th}>Name</th>
                 <th className={`${styles.th} ${styles.sortable}`} onClick={() => toggleSort("role")}>Role{sortArrow("role")}</th>
                 <th className={`${styles.th} ${styles.sortable}`} onClick={() => toggleSort("department")}>Department{sortArrow("department")}</th>
                 <th className={`${styles.th} ${styles.sortable}`} onClick={() => toggleSort("status")}>Status{sortArrow("status")}</th>
@@ -490,7 +490,7 @@ export default function PeoplePage() {
             </thead>
             <tbody>
               {loading && <tr><td colSpan={7} className={styles.emptyCell}>Loading…</td></tr>}
-              {!loading && pageRows.length === 0 && <tr><td colSpan={7} className={styles.emptyCell}>No employees found.</td></tr>}
+              {!loading && pageRows.length === 0 && <tr><td colSpan={7} className={styles.emptyCell}>No staff found.</td></tr>}
               {pageRows.map((emp, i) => (
                 <tr key={emp.code || i} className={styles.tr}>
                   <td className={styles.tdCheck}><span className={styles.checkBox} /></td>
