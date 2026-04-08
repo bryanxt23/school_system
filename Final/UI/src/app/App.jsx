@@ -9,6 +9,8 @@ import PeoplePage from "../features/people/PeoplePage";
 import CalendarPage from "../features/calendar/CalendarPage";
 import AcademicsPage from "../features/academics/AcademicsPage";
 import DirectoryPage from "../features/directory/DirectoryPage";
+import GradesPage from "../features/grades/GradesPage";
+import TeacherGradeEncodingPage from "../features/grades/TeacherGradeEncodingPage";
 
 function getUser() {
   try {
@@ -62,6 +64,12 @@ export default function App() {
                 } />
                 <Route path="/directory" element={
                   <RequireAdmin><DirectoryPage /></RequireAdmin>
+                } />
+                <Route path="/grades" element={
+                  <RequireRole roles={["Student", "Parent", "Admin"]}><GradesPage /></RequireRole>
+                } />
+                <Route path="/teacher/grades/:id" element={
+                  <RequireRole roles={["Teacher", "Admin"]}><TeacherGradeEncodingPage /></RequireRole>
                 } />
                 <Route path="/" element={<Navigate to="/dashboard" replace />} />
                 <Route path="*" element={<Navigate to="/dashboard" replace />} />

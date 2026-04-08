@@ -17,10 +17,12 @@ const NAV_BY_ROLE = {
   ],
   Student: [
     { label: "Dashboard", path: "/dashboard" },
+    { label: "Grades",    path: "/grades" },
     { label: "Calendar",  path: "/calendar" },
   ],
   Parent: [
     { label: "Dashboard", path: "/dashboard" },
+    { label: "Grades",    path: "/grades" },
     { label: "Calendar",  path: "/calendar" },
   ],
   Janitor: [

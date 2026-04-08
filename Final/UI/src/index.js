@@ -21,6 +21,8 @@ window.fetch = function (resource, options = {}) {
     if (user && user.role && !headers.has('X-User-Role')) headers.set('X-User-Role', user.role);
     if (user && user.username && !headers.has('X-Username')) headers.set('X-Username', user.username);
     if (user && user.employeeCode && !headers.has('X-Employee-Code')) headers.set('X-Employee-Code', user.employeeCode);
+    if (user && user.linkedEntityId != null && !headers.has('X-Linked-Entity-Id')) headers.set('X-Linked-Entity-Id', String(user.linkedEntityId));
+    if (user && user.linkedEntityType && !headers.has('X-Linked-Entity-Type')) headers.set('X-Linked-Entity-Type', user.linkedEntityType);
   } catch (e) { /* ignore */ }
 
   return _nativeFetch(resource, { ...options, headers });
