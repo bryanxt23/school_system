@@ -1,0 +1,12 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(xargs -I {} basename {})",
+      "Bash(mvn -q -DskipTests compile)",
+      "Bash(mvn -DskipTests compile)",
+      "Bash(mvn clean:*)",
+      "Bash(CI=true npm run build)",
+      "Bash(npm run:*)"
+    ]
+  }
+}
