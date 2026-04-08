@@ -16,6 +16,7 @@ import TuitionPage from "../features/tuition/TuitionPage";
 import BooksAdminPage from "../features/books/BooksAdminPage";
 import BooksPage from "../features/books/BooksPage";
 import AnnouncementsPage from "../features/announcements/AnnouncementsPage";
+import FacilitiesAdminPage from "../features/facilities/FacilitiesAdminPage";
 
 function getUser() {
   try {
@@ -89,6 +90,9 @@ export default function App() {
                   <RequireRole roles={["Student", "Parent", "Admin"]}><BooksPage /></RequireRole>
                 } />
                 <Route path="/announcements" element={<AnnouncementsPage />} />
+                <Route path="/admin/facilities" element={
+                  <RequireAdmin><FacilitiesAdminPage /></RequireAdmin>
+                } />
                 <Route path="/" element={<Navigate to="/dashboard" replace />} />
                 <Route path="*" element={<Navigate to="/dashboard" replace />} />
               </Routes>

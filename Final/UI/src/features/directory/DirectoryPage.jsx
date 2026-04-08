@@ -8,6 +8,7 @@ const TABS = [
   { key: "parents",        label: "Parents" },
   { key: "parent-student", label: "Parent ↔ Student" },
   { key: "enrollments",    label: "Enrollments" },
+  { key: "student-sports", label: "Sports" },
 ];
 
 /* ---------- External lookup endpoints (resolved on demand for ref fields) ---------- */
@@ -15,6 +16,7 @@ const LOOKUPS = {
   sections:    { endpoint: "/api/sections",     label: "name" },
   schoolYears: { endpoint: "/api/school-years", label: "label" },
   semesters:   { endpoint: "/api/semesters",    label: "label" },
+  sports:      { endpoint: "/api/sports",       label: "name" },
 };
 
 /* ---------- Field schemas ---------- */
@@ -107,6 +109,26 @@ const SCHEMA = {
         options: [["ENROLLED","Enrolled"], ["DROPPED","Dropped"], ["COMPLETED","Completed"]] },
     ],
     blank: { studentId: "", schoolYearId: "", semesterId: "", sectionId: "", status: "ENROLLED" },
+  },
+
+  "student-sports": {
+    endpoint: "/api/student-sports",
+    columns: [
+      ["studentId",    "Student"],
+      ["sportId",      "Sport"],
+      ["schoolYearId", "School Year"],
+      ["jerseyNumber", "Jersey #"],
+      ["position",     "Position"],
+    ],
+    fields: [
+      { key: "studentId",    label: "Student", type: "selfLookup", lookup: "students",
+        labelFn: r => `${r.lastName}, ${r.firstName} (${r.studentNumber})`, required: true },
+      { key: "sportId",      label: "Sport", type: "lookup", lookup: "sports", required: true },
+      { key: "schoolYearId", label: "School Year", type: "lookup", lookup: "schoolYears", required: true },
+      { key: "jerseyNumber", label: "Jersey #", type: "text" },
+      { key: "position",     label: "Position", type: "text" },
+    ],
+    blank: { studentId: "", sportId: "", schoolYearId: "", jerseyNumber: "", position: "" },
   },
 };
 

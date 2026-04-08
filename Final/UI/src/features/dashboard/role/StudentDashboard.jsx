@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import API_BASE from "../../../config";
 import RoleDashboard from "./RoleDashboard";
+import MySportsWidget from "./MySportsWidget";
 import s from "./ClassList.module.css";
 
 function useStudentSchedule(sectionId) {
@@ -101,6 +102,8 @@ export default function StudentDashboard({ user }) {
           </ul>
         )}
       </div>
+
+      <MySportsWidget studentId={link?.id} />
     </RoleDashboard>
   );
 }

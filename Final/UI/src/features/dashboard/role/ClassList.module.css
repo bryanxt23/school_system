@@ -91,3 +91,15 @@
   padding: 11px 16px;
   font-size: 0.85rem;
 }
+
+.markDoneBtn {
+  background: #2c1810;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 8px 14px;
+  font-size: 0.78rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+.markDoneBtn:hover { background: #4a2520; }

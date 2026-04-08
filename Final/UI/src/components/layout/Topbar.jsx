@@ -10,6 +10,7 @@ const NAV_BY_ROLE = {
     { label: "Directory",     path: "/directory" },
     { label: "Tuition",       path: "/admin/tuition" },
     { label: "Books",         path: "/admin/books" },
+    { label: "Facilities",    path: "/admin/facilities" },
     { label: "Announcements", path: "/announcements" },
     { label: "People",        path: "/people" },
     { label: "Calendar",      path: "/calendar" },
