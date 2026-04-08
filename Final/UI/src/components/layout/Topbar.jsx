@@ -82,12 +82,17 @@ function NavGroup({ entry, pathname, nav }) {
   return (
     <div className={styles.navGroup} ref={ref}>
       <div
-        className={`${styles.navItem} ${groupActive ? styles.active : ""}`}
+        className={`${styles.navItem} ${groupActive || open ? styles.active : ""}`}
         onClick={() => setOpen(o => !o)}
         role="button"
         tabIndex={0}
         onKeyDown={e => { if (e.key === "Enter" || e.key === " ") setOpen(o => !o); }}>
-        {entry.label} <span className={styles.chevron}>▾</span>
+        <span>{entry.label}</span>
+        <svg
+          className={`${styles.chevron} ${open ? styles.chevronOpen : ""}`}
+          width="10" height="10" viewBox="0 0 12 12" fill="none">
+          <path d="M2.5 4.5 L6 8 L9.5 4.5" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"/>
+        </svg>
       </div>
       {open && (
         <div className={styles.dropdown}>
